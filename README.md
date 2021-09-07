@@ -1,8 +1,20 @@
-## 
+## Heltec Sensor Board 
+
+Sensors:  
+        - DHT22
+        - MH-Z14A
+        - MH-Z19
+        - SGP30
+        - Gravity CO2 Sensor V2.0
+        - GYML8511
+        - CJMCU-811
+        
+Peripherals: 
+        - I2C OLED Display
 
 
 
-Parser-Code:(Language: https://elixir-lang.org/ )
+# Parser-Code:(Language: https://elixir-lang.org/ )
 
 ```
 ############################################################################################################
