@@ -5,6 +5,11 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <stdexcept>
+#include <Wire.h>
+#include <bitset>
+#include <cassert>
+#include <string>
 
 #define RED_PIN 4
 #define GRN_PIN 2
@@ -27,6 +32,12 @@ extern int ms;
 //
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+extern const size_t arraySize ;
+extern unsigned int invertedBinaryNum[];
+extern unsigned int binaryNum[];
+extern uint32_t binValue;
+extern uint16_t binSensorData;
 
 //Hardware status and device communication
 extern unsigned int hardwareState;

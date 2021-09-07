@@ -1,3 +1,14 @@
+/*##########################################################################################################
+ * 
+ *  Link: 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * ########################################################################################################
+ */
 // reference: https://www.arduino.cc/reference/de/language/functions/digital-io/pinmode/
 // reference: https://www.arduino.cc/reference/de/language/functions/analog-io/analogwrite/
 

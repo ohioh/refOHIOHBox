@@ -1,3 +1,14 @@
+/*##########################################################################################################
+ * 
+ *  Link: 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * ########################################################################################################
+ */
 #include <ESP32_LoRaWAN.h>
 #include <Wire.h>
 
@@ -8,6 +19,7 @@
 #include "DHT22.hpp"
 #include "Display.hpp"
 #include "LED.hpp"
+#include "SGP30.hpp"
 
 void runLOOP() {
   Serial.println(tester);
@@ -16,6 +28,14 @@ void runLOOP() {
   delay(MEASURMENT_BRAKE);
   blinkGREEN(2, 600);
   getHumidityDHT22();
+  delay(MEASURMENT_BRAKE);
+  blinkGREEN(2, 600);
+  delay(1000);
+  //getCO2();
+  delay(MEASURMENT_BRAKE);
+  blinkGREEN(2, 600);
+  delay(1000);
+  //getVOC();
   delay(MEASURMENT_BRAKE);
   //////////////////////////////
 

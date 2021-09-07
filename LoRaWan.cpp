@@ -1,3 +1,21 @@
+/*##########################################################################################################
+ * 
+ *  Link: 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * ########################################################################################################
+ */
+#include <stdlib.h>
+#include <stdint.h>
+#include <Wire.h>
+#include <bitset>
+#include <cassert>
+#include <string>
+
 #include "LoRaWan.hpp"
 #include "settings.hpp"
 #include "variables.hpp"
@@ -8,11 +26,6 @@
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-constexpr size_t arraySize = 16;
-unsigned int invertedBinaryNum[arraySize] {0};
-unsigned int binaryNum[arraySize] {0};
-uint32_t binValue = 0;
-uint16_t binSensorData = 0b0000000000000000; //for integer values till to 65535
 
 //TODO: change the int to size_t
 void decToBinary(int input)

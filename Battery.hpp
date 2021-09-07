@@ -9,19 +9,15 @@
  * 
  * ########################################################################################################
  */
-#ifndef LOOP_HPP
-#define LOOP_HPP
+ 
+#ifndef BATTERY_HPP
+#define BATTERY_HPP
 
-#include <ESP32_LoRaWAN.h>
+#include "Arduino.h"
 #include <Wire.h>
+#include "heltec.h"
 
-#include "variables.hpp"
-#include "settings.hpp"
-#include "LoRaWan.hpp"
-#include "DHT22.hpp"
-#include "Display.hpp"
-#include "LED.hpp"
+void setupBattery();
+void getBatteryStatus();
 
-void runLOOP();
-
-#endif
+#endif 

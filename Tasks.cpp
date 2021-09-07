@@ -1,6 +1,6 @@
 /*##########################################################################################################
  * 
- *  Link: 
+ *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/tree/master/examples/ESP32/ESP32_Dual_Core
  * 
  * 
  * 
@@ -9,16 +9,6 @@
  * 
  * ########################################################################################################
  */
-#ifndef SETUP_HPP
-#define SETUP_HPP
 
-#include "variables.hpp"
-#include "settings.hpp"
-#include "DHT22.hpp"
-#include "Display.hpp"
-#include "LED.hpp"
-#include "LoRaWan.hpp"
 
-extern void runSETUP();
-
-#endif
+#include "Task.hpp"

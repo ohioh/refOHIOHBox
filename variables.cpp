@@ -1,4 +1,11 @@
 #include "variables.hpp"
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdexcept>
+#include <Wire.h>
+#include <bitset>
+#include <cassert>
+#include <string>
 
 
 int globaleVariable = 4711; // definition
@@ -12,6 +19,12 @@ int ms = 1000;
 //
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const size_t arraySize = 16;
+unsigned int invertedBinaryNum[arraySize] {0};
+unsigned int binaryNum[arraySize] {0};
+uint32_t binValue = 0;
+uint16_t binSensorData = 0b0000000000000000; //for integer values till to 65535
 
 //Hardware status and device communication
 unsigned int hardwareState = 0;

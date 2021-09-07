@@ -1,6 +1,6 @@
 /*##########################################################################################################
  * 
- *  Link: 
+ *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/src/heltec.h
  * 
  * 
  * 
@@ -9,19 +9,9 @@
  * 
  * ########################################################################################################
  */
-#ifndef LOOP_HPP
-#define LOOP_HPP
+ 
+#include "HELTEC.cpp"
 
-#include <ESP32_LoRaWAN.h>
+#include "Arduino.h"
 #include <Wire.h>
-
-#include "variables.hpp"
-#include "settings.hpp"
-#include "LoRaWan.hpp"
-#include "DHT22.hpp"
-#include "Display.hpp"
-#include "LED.hpp"
-
-void runLOOP();
-
-#endif
+#include "heltec.h"

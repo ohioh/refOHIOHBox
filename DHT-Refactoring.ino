@@ -7,6 +7,8 @@
 # Date: September 2021
 # Version: 1.0.0
 # Hardware: Heltec Wireless Stick && Heltec Wireless Stick Lite (ESP32 BASE)
+# Link: https://github.com/HelTecAutomation/ESP32_LoRaWAN
+# Link: https://github.com/HelTecAutomation/Heltec_ESP32
 # Sensors: Temperature, Humidity , eCO2 or CO2
 # Peripherals: Display and multicolor LED
 # MultiProcessor Support: YES

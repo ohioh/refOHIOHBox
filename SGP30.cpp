@@ -1,10 +1,29 @@
+/*##########################################################################################################
+ * 
+ *  Link: 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * ########################################################################################################
+ */
+#include <SparkFun_SGP30_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_SGP30
+
+#include <Wire.h>
+#include <stdint.h>
+#include <bitset>
+#include <cassert>
+#include <string>
+
 #include "SGP30.hpp"
 #include "variables.hpp"
 #include "LED.hpp"
 #include "Display.hpp"
+#include "LoRaWan.hpp"
 
-#include "SparkFun_SGP30_Arduino_Library.h" // Click here to get the library: http://librarymanager/All#SparkFun_SGP30
-
+SGP30 mySensor; //create an object of the SGP30 class
 
 /////////////////////////////////////////////---CONNECT CO² AND VOC SENSOR---//////////////////////////////////////////////////////////
 //  Variables:
@@ -28,47 +47,42 @@
 
 bool messureCO2 = true; // true means only CO2, false means only VOC
 
-int connectSGP30()
+
+///////////////////////////////////////////---PRINT CO2---/////////////////////////////////////////////////////////////////////////////
+
+
+
+///////////////////////////////////////////---Get CO2---///////////////////////////////////////////////////////////////////////////////
+void getCO2()
 {
-  binSensorData = 0b0000000000000000;
-  binPlatformData = 0b0000000000000000;
   //First fifteen readings will be
   //in normal situation [output]: CO2: 400 ppm  TVOC: 0 ppb
   Serial.println("[Messurment]:Getting Data from SGP30");
   delay(500); //Wait 1 second
+
   //measure CO2 and TVOC levels
-  if (messureCO2 == true) {
-    binSensorData = 0b0000000000000000;
-    binPlatformData = 0b0000000000000000;
-    mySensor.measureAirQuality();
-    sensorDataCO2 = mySensor.CO2;
-    co4LED = sensorDataCO2;
+  mySensor.measureAirQuality();
+  sensorDataCO2 = mySensor.CO2;
+  Serial.print("[Messurment]:CO2: ");
+  Serial.print(sensorDataCO2);
+  Serial.print(" ppm\n");
 
-    //Convert Deicimal Value in Binary in binSensorData
-    decToBinary(sensorDataCO2);
-    //Convert Binary for Zenner-Logic in binPlatformData
-    zennerParserPrepair();
-    binaryCO2 = binPlatformData;
-    Serial.print("[Messurment]:CO2: ");
-    Serial.print(sensorDataCO2);
-    Serial.print(" ppm\n");
-    messureCO2 = false;
-  }
+}
 
-  if (messureCO2 == false) {
-    binSensorData = 0b0000000000000000;
-    binPlatformData = 0b0000000000000000;
-    mySensor.measureAirQuality();
-    sensorDataVOC = mySensor.TVOC;
-    voc4LED = sensorDataVOC;
-    //Convert Deicimal Value in Binary in binSensorData
-    decToBinary(sensorDataVOC);
-    //Convert Binary for Zenner-Logic in binPlatformData
-    zennerParserPrepair();
-    binaryVOC = binPlatformData;
-    Serial.print("[Messurment]:tTVOC:");
-    Serial.print(sensorDataVOC);
-    Serial.print(" ppb\n");
-    messureCO2 = true;
-  }
+
+
+///////////////////////////////////////////---PRINT VOC---/////////////////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////---Get VOC---///////////////////////////////////////////////////////////////////////////////
+
+void getVOC()
+{
+  mySensor.measureAirQuality();
+  sensorDataVOC = mySensor.TVOC;
+
+  Serial.print("[Messurment]:tTVOC:");
+  Serial.print(sensorDataVOC);
+  Serial.print(" ppb\n");
+
 }

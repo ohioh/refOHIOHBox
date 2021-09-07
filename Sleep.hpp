@@ -1,6 +1,6 @@
 /*##########################################################################################################
  * 
- *  Link: 
+ *  Link: https://randomnerdtutorials.com/esp32-deep-sleep-arduino-ide-wake-up-sources/
  * 
  * 
  * 
@@ -9,19 +9,8 @@
  * 
  * ########################################################################################################
  */
-#ifndef LOOP_HPP
-#define LOOP_HPP
+#ifndef SLEEP_HPP
+#define SLEEP_HPP
 
-#include <ESP32_LoRaWAN.h>
-#include <Wire.h>
-
-#include "variables.hpp"
-#include "settings.hpp"
-#include "LoRaWan.hpp"
-#include "DHT22.hpp"
-#include "Display.hpp"
-#include "LED.hpp"
-
-void runLOOP();
 
 #endif
