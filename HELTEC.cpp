@@ -10,8 +10,8 @@
  * ########################################################################################################
  */
  
-#include "HELTEC.cpp"
+#include "HELTEC.hpp"
+#include "Variables.hpp"
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <Wire.h>
-#include "heltec.h"

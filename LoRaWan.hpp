@@ -1,5 +1,5 @@
 /*##########################################################################################################
- * 
+ *  LoRaWan.hpp
  *  Link: 
  * 
  * 
@@ -14,19 +14,12 @@
 
 #pragma once
 
-#include "variables.hpp"
-
-#include <ESP32_LoRaWAN.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <Wire.h>
-#include <bitset>
-#include <cassert>
-#include <string>
 
-extern void decToBinary(int input);
-extern void zennerParserPrepair();
-extern void prepareTxFrame(uint8_t port);
+void decToBinary(int input);
+void zennerParserPrepair();
+void prepareTxFrame(uint8_t port);
 
 
 #endif

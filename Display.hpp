@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
-
 void initializeDisplay();
 
 void pre(void);
@@ -27,5 +25,6 @@ void draw_ascii_row(uint8_t r, int start);
 void connectDisplay();
 void printTemperature(int temperature, int displayTime);
 void printHumidity(int humidity, int displayTime);
+void turnoffDisplay();
 
 #endif

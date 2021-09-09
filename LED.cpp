@@ -1,20 +1,25 @@
 /*##########################################################################################################
- * 
- *  Link: 
- * 
- * 
- * 
- * 
- * 
- * 
- * ########################################################################################################
- */
+
+    Link:
+
+
+
+
+
+
+   ########################################################################################################
+*/
 // reference: https://www.arduino.cc/reference/de/language/functions/digital-io/pinmode/
 // reference: https://www.arduino.cc/reference/de/language/functions/analog-io/analogwrite/
+#include "Variables.hpp"
+#include "LED.hpp"
 
 #include <Arduino.h>
-#include "LED.hpp"
-#include "variables.hpp"
+#include <stdlib.h>
+#include <stdint.h>
+
+
+
 
 void setLEDPins()
 {
@@ -46,7 +51,8 @@ void blinkLEDBuildin()
 }
 
 
-void blinkRED(byte times, unsigned int ms) {
+void blinkRED(byte times, unsigned int ms)
+{
   for (byte i = 0; i < times; i++) {
     digitalWrite(RED_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
@@ -56,7 +62,8 @@ void blinkRED(byte times, unsigned int ms) {
 }
 
 
-void blinkGREEN(byte times, unsigned int ms) {
+void blinkGREEN(byte times, unsigned int ms)
+{
   for (byte i = 0; i < times; i++) {
     digitalWrite(GRN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
@@ -66,7 +73,8 @@ void blinkGREEN(byte times, unsigned int ms) {
 }
 
 
-void blinkBLUE(byte times, unsigned int ms) {
+void blinkBLUE(byte times, unsigned int ms)
+{
   for (byte i = 0; i < times; i++) {
     digitalWrite(BLU_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
@@ -75,7 +83,8 @@ void blinkBLUE(byte times, unsigned int ms) {
   }
 }
 
-void blinkWHITE(byte times, unsigned int ms) {
+void blinkWHITE(byte times, unsigned int ms)
+{
   for (byte i = 0; i < times; i++) {
     digitalWrite(RED_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     digitalWrite(GRN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
@@ -89,7 +98,8 @@ void blinkWHITE(byte times, unsigned int ms) {
 }
 
 
-void blinkALERT(byte times, unsigned int ms) {
+void blinkALERT(byte times, unsigned int ms)
+{
   for (byte i = 0; i < times; i++) {
     digitalWrite(ALERT_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);

@@ -1,21 +1,29 @@
 /*##########################################################################################################
- * 
- *  Link: 
- * 
- * 
- * 
- * 
- * 
- * 
- * ########################################################################################################
- */
-#include "Setup.hpp"
-#include "variables.hpp"
-#include "settings.hpp"
-#include "LoRaWan.hpp"
+    SETUP.cpp
+    Link:
+
+
+
+
+
+
+   ########################################################################################################
+*/
+
+#include "Settings.hpp"
+#include "Variables.hpp"
+
+#include <Arduino.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include "SETUP.hpp"
+//#include "LED.hpp"
 #include "DHT22.hpp"
 #include "Display.hpp"
-#include "LED.hpp"
+#include "LoRaWan.hpp"
+#include "Sleep.hpp"
+
+
 
 void runSETUP()
 {
@@ -25,8 +33,12 @@ void runSETUP()
   Serial.printf("ESP32 Chip ID = %04X", (uint16_t)(chipid >> 32)); //print High 2 bytes
   Serial.printf("%08X\n", (uint32_t)chipid); //print Low 4bytes.
 
-  setLEDPins();
-  blinkBLUE(5, 500);
+  //set Deep-Sleep Timer
+  setDeepSleepTime();
+
+
+  //setLEDPins();
+  //blinkBLUE(5, 500);
 
   ///////////////--Wire Activation--////////////////////
   SPI.begin(SCK, MISO, MOSI, SS);
@@ -34,17 +46,17 @@ void runSETUP()
 
   ///////////////--Initialize device--//////////////////
   activateDHT22();
-  blinkBLUE(3, 800);
+  //blinkBLUE(3, 800);
   deviceState = DEVICE_STATE_INIT;
 
   ///////////////--Initialize display--/////////////////
   initializeDisplay();
-  blinkBLUE(3, 800);
+  //blinkBLUE(3, 800);
   delay(500);
 
   connectDisplay();
-  blinkBLUE(3, 800);
+  //blinkBLUE(3, 800);
   delay(2000);
 
-  blinkWHITE(3, 1000);
+  //blinkWHITE(3, 1000);
 }

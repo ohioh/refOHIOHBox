@@ -9,7 +9,8 @@
  * 
  * ########################################################################################################
  */
-#include <SparkFun_SGP30_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_SGP30
+#include "Variables.hpp"
+#include "SGP30.hpp"
 
 #include <Wire.h>
 #include <stdint.h>
@@ -17,8 +18,8 @@
 #include <cassert>
 #include <string>
 
-#include "SGP30.hpp"
-#include "variables.hpp"
+#include <SparkFun_SGP30_Arduino_Library.h> // Click here to get the library: http://librarymanager/All#SparkFun_SGP30
+
 #include "LED.hpp"
 #include "Display.hpp"
 #include "LoRaWan.hpp"

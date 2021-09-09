@@ -1,3 +1,14 @@
+/*##########################################################################################################
+ *  Variables.hpp
+ *  Link: 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * ########################################################################################################
+ */
 #ifndef VARIABLES_HPP
 #define VARIABLES_HPP
 
@@ -5,33 +16,32 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-#include <stdexcept>
-#include <Wire.h>
-#include <bitset>
-#include <cassert>
-#include <string>
 
-#define RED_PIN 4
-#define GRN_PIN 2
-#define BLU_PIN 15
-#define ALERT_PIN 32
-#define MEASURMENT_BRAKE 500
-
-extern int tester;
-
-/*
 extern int globaleVariable; // deklaration
 extern int RED_PIN;
 extern int GRN_PIN;
 extern int BLU_PIN;
 extern int ALERT_PIN;
 extern int ms;
-*/
+extern int MEASURMENT_BRAKE;
+
 
 //////////////////////////////////////////////---SENSOR-VARIABLES---///////////////////////////////////////////////////////////////////
 //
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+extern int gTEMPERATURE;
+extern uint8_t gBinTEMPERATURE;
+
+extern int gHUMIDITY;
+extern uint8_t gBinHUMIDITY;
+
+extern int gCO2;
+extern uint8_t gBinCO2;
+
+extern int gVOC;
+extern uint8_t gBinVOC;
+
 
 extern const size_t arraySize ;
 extern unsigned int invertedBinaryNum[];

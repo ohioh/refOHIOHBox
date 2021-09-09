@@ -14,7 +14,7 @@
 # MultiProcessor Support: YES
 #
 # Parser-Code: https://github.com/ohioh/OHIOHBox/blob/main/Parser.exs
-# Github-Repo: https://github.com/ohioh/OHIOHBox
+# Github-Repo: https://github.com/ohioh/refOHIOHBox
 #
 # ESP32-Function summary:
 # 
@@ -91,14 +91,10 @@
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-#include "settings.hpp"
-#include "variables.hpp"
-#include "DHT22.hpp" //use the DHT22 Sensor for Temperature & Humidity
-#include "Display.hpp"
-#include "LED.hpp" //use the Onboard-LED, RGB-LED and red Alert-LED
-#include "LOOP.hpp"
-#include "LoRaWan.hpp"
 #include "SETUP.hpp"
+#include "LOOP.hpp"
+#include "Settings.hpp"
+#include "Variables.hpp"
 
 
 ////////////////////////////////////////////////////////---SETUP---///////////////////////////////////////////////////////////////////

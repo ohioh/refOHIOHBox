@@ -1,5 +1,5 @@
 /*##########################################################################################################
- * 
+ *  LoRaWan.cpp
  *  Link: 
  * 
  * 
@@ -9,6 +9,10 @@
  * 
  * ########################################################################################################
  */
+#include "Settings.hpp"
+#include "Variables.hpp"
+#include "LoRaWan.hpp"
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <Wire.h>
@@ -16,16 +20,13 @@
 #include <cassert>
 #include <string>
 
-#include "LoRaWan.hpp"
-#include "settings.hpp"
-#include "variables.hpp"
+
 
 
 ///////////////////////////////////////////////---CONVERT INTEGER TO BINARY---//////////////////////////////////////////////////////////////
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 //TODO: change the int to size_t
 void decToBinary(int input)
@@ -162,7 +163,7 @@ void prepareTxFrame(uint8_t port)
 
   //Size of values in Payload as binary
   //depends to uintXX_t appData[]
-  appDataSize = 20; //AppDataSize max value is 64 -> each number is for 2 digits
+  appDataSize = 12; //AppDataSize max value is 64 -> each number is for 2 digits
   //Important: AppDataSize representate the number of transmitted bytes
 
   /////////////---Parser: status: state---/////////////

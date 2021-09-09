@@ -16,7 +16,8 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include <DHT_U.h>
-#include "variables.hpp"
+
+#include "Variables.hpp"
 #include "Display.hpp"
 
 
@@ -38,8 +39,6 @@ sensor_t sensor;
 sensors_event_t event;
 
 
-int TEMPERATURE = 0;
-int HUMIDITY =  0;
 
 //////////////////////////////////////////---Activate DHT SENSOR---//////////////////////////////////////////////////////////
 void activateDHT22()
@@ -61,7 +60,7 @@ void activateDHT22()
 
 void sendTemperature()
 {
-  printTemperature(TEMPERATURE, 3000);
+  
 }
 
 
@@ -69,7 +68,7 @@ void sendTemperature()
 
 void sendHumidity()
 {
-  printHumidity(HUMIDITY, 3000);
+  
 }
 
 
@@ -85,12 +84,11 @@ void getTemperatureDHT22()
   }
   else {
     Serial.print(F("Temperature: "));
-    TEMPERATURE = event.temperature;
-    Serial.print(TEMPERATURE);
+    gTEMPERATURE = event.temperature;
+    Serial.print(gTEMPERATURE);
     Serial.println(F("°C"));
   }
   // Set delay between sensor readings based on sensor details.
-  sendTemperature();
   delayMS = sensor.min_delay / 1000;
 }
 
@@ -106,11 +104,10 @@ void getHumidityDHT22()
   }
   else {
     Serial.print(F("Humidity: "));
-    HUMIDITY = event.relative_humidity;
-    Serial.print(HUMIDITY);
+    gHUMIDITY = event.relative_humidity;
+    Serial.print(gHUMIDITY);
     Serial.println(F("%"));
   }
   // Set delay between sensor readings based on sensor details.
-  sendHumidity();
   delayMS = sensor.min_delay / 1000;
 }

@@ -14,5 +14,4 @@
 #define CONVERTER_HPP
 
 
-
 #endif

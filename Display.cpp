@@ -22,6 +22,7 @@
 U8X8_SSD1306_128X64_NONAME_SW_I2C u8x8(/* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   // OLEDs without Reset of the Display
 // End of constructor list
 
+#include "Variables.hpp"
 
 ////////////////////////////////////////////////////---CONNECT DISPLAY---////////////////////////////////////////////////////////////
 //  Variables:
@@ -138,4 +139,9 @@ void printHumidity(int humidity, int displayTime)
   delay(displayTime);
   u8x8.clear();
   u8x8.setPowerSave(1);
+}
+
+void turnoffDisplay()
+{
+  u8x8.setPowerSave(true);
 }

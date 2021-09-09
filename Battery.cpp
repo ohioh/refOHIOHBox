@@ -1,5 +1,5 @@
 /*##########################################################################################################
- * 
+ *  Battery.cpp
  *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/ADC_Read_Voltage/Battery_power/Battery_power.ino
  *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/VextControl/VextControl.ino
  * 
@@ -9,12 +9,13 @@
  * 
  * ########################################################################################################
  */
-
 #include "battery.hpp"
 
-#include "Arduino.h"
+#include <Arduino.h>
 #include <Wire.h>
-#include "heltec.h"
+
+
+#include "Variables.hpp"
 
 #define Fbattery    3700  //The default battery is 3700mv when the battery is fully charged.
 
@@ -24,7 +25,7 @@ uint16_t MMUL = 100;
 
 void setupBattery()
 {
-  Heltec.begin(false /*DisplayEnable Enable*/, false /*LoRa Enable*/, true /*Serial Enable*/);
+  //Heltec.begin(false /*DisplayEnable Enable*/, false /*LoRa Enable*/, true /*Serial Enable*/);
 
   //Heltec.display->init();
   //Heltec.display->flipScreenVertically();
