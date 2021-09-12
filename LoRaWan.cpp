@@ -90,7 +90,6 @@ void decToBinary(int input)
   }
 
   //Write bin Array Values with bitWrite to binSensorData
-
   size_t writeSpace = arraySizeCounter - 1;
 
   for (size_t binDataPlace = 0; binDataPlace < arraySizeCounter; binDataPlace ++) {
@@ -172,33 +171,37 @@ void prepareTxFrame(uint8_t port)
   delay(50);
 
   /////////////---Parser: battery: bat---/////////////
-  //connectBatteryStatus();
-  appData[1] = binaryBatteryStatus;
+  decToBinary(batteryStatus);
+  zennerParserPrepair();
+  appData[1] = binPlatformData;
   delay(50);
 
   /////////////---Parser: temperature: temp---/////////////
   //connectDHT();
-  appData[2] = binaryTemperature;
+  decToBinary(gTEMPERATURE);
+  zennerParserPrepair();
+  appData[2] = binPlatformData;
   //messureTemperature = false;
   delay(50);
 
   /////////////---Parser: humidity: hum---/////////////
-  //connectDHT();
-  appData[3] = binaryHumidity;
+  decToBinary(gHUMIDITY);
+  zennerParserPrepair();
+  appData[3] = binPlatformData;
   //messureTemperature = true;
   delay(50);
 
   /////////////---Parser: codioxid: co2---/////////////
-  //connectSGP30();
-  //connectCJMCU811();
-  appData[4] = binaryCO2;
+  decToBinary(gCO2);
+  zennerParserPrepair();
+  appData[4] = binPlatformData;
   //messureCO2 = false;
   delay(50);
 
   /////////////---Parser: loesemittel: voc---/////////////
-  //connectSGP30();
-  //connectCJMCU811();
-  appData[5] = binaryVOC;
+  decToBinary(gVOC);
+  zennerParserPrepair();
+  appData[5] = binPlatformData;
   //messureCO2 = true;
   delay(50);
 }

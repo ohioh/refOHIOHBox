@@ -13,7 +13,9 @@
 #ifndef SGP30_HPP
 #define SGP30_HPP
 
-extern void getVOC();
-extern void getCO2();
+extern void setSGP30Baseline();
+extern void initializeSGP30();
+extern void getCO2andVOC();
+extern void setAverage();
 
 #endif

@@ -30,7 +30,9 @@
 //WirelessStick_811
 //uint32_t license[4] = {0xBB74D4A2, 0x7E5A9D69, 0xD4AF87EF, 0x9910D37F};
 
-uint32_t license[4] = {0x5F18A4AE, 0x1E5EB191, 0x9C1CA42B, 0x1918133B};
+uint32_t license[4] = {0x60F6240C,0x3E6D416F,0x949AE4E5,0xB90F8339};
+
+//uint32_t license[4] = {0x5F18A4AE, 0x1E5EB191, 0x9C1CA42B, 0x1918133B};
 
 /* OTAA para*/
 //WireLessStick

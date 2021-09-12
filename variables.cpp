@@ -2,8 +2,8 @@
  *  Variables.cpp
  *  Link: 
  * 
- * 
- * 
+ *  1.SENSOR-VARIABLES
+ *  2.COVID-Control -> used from Signals.cpp -> void startSignalController(); 
  * 
  * 
  * 
@@ -20,37 +20,41 @@
 #include <string>
 
 
+
 int globaleVariable = 42; // definition
 int RED_PIN = 4;
-int GRN_PIN = 2;
-int BLU_PIN = 15;
+int GREEN_PIN = 2;
+int BLUE_PIN = 15;
 int ALERT_PIN = 32;
-int ms = 500;
+uint16_t ms = 500;
 int MEASURMENT_BRAKE = 500;
-
-
+bool needMessurment = true;
+bool needREBOOT = false;
 
 //////////////////////////////////////////////---SENSOR-VARIABLES---///////////////////////////////////////////////////////////////////
 //
 //
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int gTEMPERATURE = 0;
+int gTEMPERATURE = 25;
 uint8_t gBinTEMPERATURE = 0;
 
-int gHUMIDITY;
+int gHUMIDITY = 65;
 uint8_t gBinHUMIDITY;
 
-int gCO2 = 0;
+int gCO2 = 600;
+int averageCO2;
 uint8_t gBinCO2;
 
 int gVOC = 0;
+int averageVOC;
 uint8_t gBinVOC = 0;
 
 
 const size_t arraySize = 16;
 unsigned int invertedBinaryNum[arraySize] {0};
 unsigned int binaryNum[arraySize] {0};
+
 uint32_t binValue = 0;
 uint16_t binSensorData = 0b0000000000000000; //for integer values till to 65535
 
@@ -59,7 +63,7 @@ unsigned int hardwareState = 0;
 uint16_t binaryHardwareStatus = 0b1100110011001100; //52428 and CCCC
 
 // Battery-Power
-unsigned int batteryStatus = 65;
+unsigned int batteryStatus = 95;
 uint16_t binaryBatteryStatus = 0b1100110011001100; //52428 and CCCC
 
 unsigned int sensorDataTemperature = 0;
@@ -78,3 +82,12 @@ uint16_t binaryCO2 = 0b1100110011001100; //52428 and CCCC
 //////////////////////////////////////////////---COVID-Control---///////////////////////////////////////////////////////////////////
 // Values used for Logic Controll of LED and Send-Decission
 bool needCheck = false;
+
+int gTEMPERATURETrigger_highLevel = 28;
+int gTEMPERATURETrigger_riskLevel  = 30;
+int gTEMPERATURETrigger_dangerLevel = 32;
+
+int  alertTriggerHum = 90;
+uint16_t gCO2Trigger_highLevel = 700;
+uint16_t gCO2Trigger_riskLevel = 800;
+uint16_t gCO2Trigger_dangerLevel = 1000;
