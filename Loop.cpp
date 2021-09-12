@@ -15,28 +15,46 @@
 
 #include <ESP32_LoRaWAN.h>
 #include <Wire.h>
+#include <EEPROM.h>
 
 #include "DHT22.hpp"
 #include "Display.hpp"
 #include "LoRaWan.hpp"
-//#include "LED.hpp"
+#include "LED.hpp"
 #include "SGP30.hpp"
 #include "Sleep.hpp"
+#include "Signals.hpp"
+#include "SETUP.hpp"
+#include "REBOOT.hpp"
+#include "Tasks.hpp"
 
 void runLOOP() {
-  
+  /*
+    if ( needMessurment == true ) {
+    getCO2andVOC();
+    delay(1000);
+    blinkBLUE(3, 1000);
+    needMessurment = false;
+    }
+
+    if ( needREBOOT == true ) {
+    rebootESP32(10000);
+    }
+
+    for ( int count = 0; count <= 10; count ++) {
+  */
   switch (deviceState)
   {
     ///////////////--Initialize--////////////////////
     case DEVICE_STATE_INIT:
       {
-        #if (LORAWAN_DEVEUI_AUTO)
-          LoRaWAN.generateDeveuiByChipID();
-        #endif
-          LoRaWAN.init(loraWanClass, loraWanRegion);
+#if (LORAWAN_DEVEUI_AUTO)
+        LoRaWAN.generateDeveuiByChipID();
+#endif
+        LoRaWAN.init(loraWanClass, loraWanRegion);
         break;
       }
-      
+
 
     ///////////////--Join--////////////////////
     case DEVICE_STATE_JOIN:
@@ -53,9 +71,7 @@ void runLOOP() {
         prepareTxFrame(appPort);
         LoRaWAN.send(loraWanClass);
         deviceState = DEVICE_STATE_CYCLE;
-        needCheck = true;
         delay(5000);
-        
         break;
       }
 
@@ -77,7 +93,7 @@ void runLOOP() {
     ///////////////--Sleep--////////////////////
     case DEVICE_STATE_SLEEP:
       {
-        LoRaWAN.sleep(loraWanClass, debugLevel);        
+        LoRaWAN.sleep(loraWanClass, debugLevel);
         break;
       }
 
@@ -89,6 +105,15 @@ void runLOOP() {
         break;
       }
   }
-  
-  //blinkALERT(1, 600);
+
+  //}
+
+  /*
+    getTemperatureDHT22();
+    delay(500);
+    getHumidityDHT22();
+  */
+  //startSignalController();
+  blinkBLUE(1, 3000);
+  //rebootESP32(10000);
 }

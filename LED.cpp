@@ -17,6 +17,7 @@
 #include <Arduino.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <cstddef>
 
 
 
@@ -28,15 +29,15 @@ void setLEDPins()
   Serial.println("Red:");
   Serial.println(RED_PIN);
   Serial.println("GREEN:");
-  Serial.println(GRN_PIN);
+  Serial.println(GREEN_PIN);
   Serial.println("Blue:");
-  Serial.println(BLU_PIN);
+  Serial.println(BLUE_PIN);
   Serial.println("--------------------");
 
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(RED_PIN, OUTPUT); // Setzt den Digitalpin Outputpin
-  pinMode(GRN_PIN, OUTPUT); // Setzt den Digitalpin Outputpin
-  pinMode(BLU_PIN, OUTPUT); // Setzt den Digitalpin Outputpin
+  pinMode(GREEN_PIN, OUTPUT); // Setzt den Digitalpin Outputpin
+  pinMode(BLUE_PIN, OUTPUT); // Setzt den Digitalpin Outputpin
   pinMode(ALERT_PIN, OUTPUT);
 }
 
@@ -51,7 +52,7 @@ void blinkLEDBuildin()
 }
 
 
-void blinkRED(byte times, unsigned int ms)
+void blinkRED(uint16_t times, uint16_t ms)
 {
   for (byte i = 0; i < times; i++) {
     digitalWrite(RED_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
@@ -62,45 +63,47 @@ void blinkRED(byte times, unsigned int ms)
 }
 
 
-void blinkGREEN(byte times, unsigned int ms)
+void blinkGREEN(uint16_t times, uint16_t ms)
 {
-  for (byte i = 0; i < times; i++) {
-    digitalWrite(GRN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  for (uint16_t i = 0; i < times; i++) {
+    digitalWrite(GREEN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
-    digitalWrite(GRN_PIN, LOW);    // turn the LED off by making the voltage LOW
+    digitalWrite(GREEN_PIN, LOW);    // turn the LED off by making the voltage LOW
     delay(ms);                       // wait for a second
   }
 }
 
 
-void blinkBLUE(byte times, unsigned int ms)
+void blinkBLUE(uint16_t times, uint16_t ms)
 {
-  for (byte i = 0; i < times; i++) {
-    digitalWrite(BLU_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  for (uint16_t i = 0; i < times; i++) {
+    digitalWrite(BLUE_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
-    digitalWrite(BLU_PIN, LOW);    // turn the LED off by making the voltage LOW
+    digitalWrite(BLUE_PIN, LOW);    // turn the LED off by making the voltage LOW
     delay(ms);                       // wait for a second
   }
 }
 
-void blinkWHITE(byte times, unsigned int ms)
+void blinkWHITE(uint16_t times, uint16_t ms)
 {
   for (byte i = 0; i < times; i++) {
     digitalWrite(RED_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-    digitalWrite(GRN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-    digitalWrite(BLU_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    digitalWrite(GREEN_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+    digitalWrite(BLUE_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);                       // wait for a second
     digitalWrite(RED_PIN, LOW);    // turn the LED off by making the voltage LOW
-    digitalWrite(GRN_PIN, LOW);    // turn the LED off by making the voltage LOW
-    digitalWrite(BLU_PIN, LOW);    // turn the LED off by making the voltage LOW
+    digitalWrite(GREEN_PIN, LOW);    // turn the LED off by making the voltage LOW
+    digitalWrite(BLUE_PIN, LOW);    // turn the LED off by making the voltage LOW
     delay(ms);                       // wait for a second
   }
 }
 
 
-void blinkALERT(byte times, unsigned int ms)
+void blinkALERT(uint16_t times, uint16_t ms)
 {
-  for (byte i = 0; i < times; i++) {
+  pinMode(ALERT_PIN, OUTPUT);
+  Serial.println("Alert-Signal -> ");
+  for (uint16_t i = 0; i < times; i++) {
     digitalWrite(ALERT_PIN, HIGH);   // turn the LED on (HIGH is the voltage level)
     delay(ms);
     digitalWrite(ALERT_PIN, LOW);   // turn the LED on (HIGH is the voltage level)

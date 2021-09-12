@@ -14,6 +14,10 @@
 
 #pragma once
 
+#include <stdlib.h>
+#include <stdint.h>
+#include <cstddef>
+
 void setLEDPins();
 void setRGB();
 
@@ -24,6 +28,13 @@ void blinkRED(byte times, unsigned int ms);
 void blinkGREEN(byte times, unsigned int ms);
 void blinkBLUE(byte times, unsigned int ms);
 void blinkWHITE(byte times, unsigned int ms);
-void blinkALERT(byte times, unsigned int ms);
+
 */
+void blinkALERT(uint16_t times, uint16_t ms);
+void blinkLEDBuildin();
+void blinkRED(uint16_t times, uint16_t ms);
+void blinkGREEN(uint16_t times, uint16_t ms);
+void blinkBLUE(uint16_t times, uint16_t ms);
+void blinkWHITE(uint16_t times, uint16_t ms);
+
 #endif
