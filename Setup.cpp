@@ -16,9 +16,8 @@
 #include <Arduino.h>
 #include <stdlib.h>
 #include <stdint.h>
-#include <EEPROM.h>
-#include "SETUP.hpp"
 #include "EEPROM.hpp"
+#include "SETUP.hpp"
 #include "LED.hpp"
 #include "DHT22.hpp"
 #include "Display.hpp"
@@ -26,9 +25,13 @@
 #include "Sleep.hpp"
 #include "SGP30.hpp"
 #include "Tasks.hpp"
+#include "Battery.hpp"
+//#include "CJMCU811.hpp"
+#include <EEPROM.h>//https://github.com/espressif/arduino-esp32/tree/master/libraries/EEPROM
 
-TaskHandle_t Task1_Core0;
-TaskHandle_t Task1_Core1;
+// define the number of bytes you want to access
+#define EEPROM_SIZE 64
+
 
 void codeForTask1_Core0( void * parameter )
 {
@@ -40,15 +43,7 @@ void codeForTask1_Core0( void * parameter )
   }
 }
 
-void codeForTask1_Core1( void * parameter )
-{
-  for (;;) {
-    Serial.print("This Task run on Core: ");
-    Serial.println(xPortGetCoreID());
 
-    delay(1000);
-  }
-}
 
 
 
@@ -56,50 +51,51 @@ void runSETUP()
 {
   //Initialize
   Serial.begin(115200);
+  delay(100);
+  Serial.println("-----Battery:-----");
+  BatteryStatus = ReadVoltage(37);
+  Serial.println(BatteryStatus);
+  Serial.println("------------------");
+
   chipid = ESP.getEfuseMac(); //The chip ID is essentially its MAC address(length: 6 bytes).
+  Serial.println("------------------------------------");
   Serial.printf("ESP32 Chip ID = %04X", (uint16_t)(chipid >> 32)); //print High 2 bytes
   Serial.printf("%08X\n", (uint32_t)chipid); //print Low 4bytes.
-  //EEPROM.begin();
-  //write_int(90, averageCO2);
-  averageCO2 = read_int(90); //Read from EEPROM
+  Serial.println("------------------------------------");
+
+
+  if (!EEPROM.begin(EEPROM_SIZE))
+  {
+    Serial.println("failed to initialise EEPROM"); delay(1000000);
+  }
+  Serial.println(" bytes read from Flash . Values are:");
+  for (int i = 90; i < EEPROM_SIZE; i++)
+  {
+    Serial.print(byte(EEPROM.read(i))); Serial.print(" ");
+  }
+
+  //averageCO2Store = read_int(90); //Read from EEPROM
+  //  averageCO2Store = read_int(90); //Read from EEPROM
+  //  Serial.println("Readout EEPROM");
+  //  Serial.println(averageCO2Store);
+  acutalMessurment = 43;
+  Serial.println ( " [Setup]: get actual Value ");
+  Serial.println( acutalMessurment );
   //set Deep-Sleep Timer
-  setDeepSleepTime();
+  //setDeepSleepTime();
 
 
-  //create Tasks
-//  xTaskCreatePinnedToCore(
-//    codeForTask1_Core0,           /*Task Function. */
-//    "Task1_Core0",               /*name of task. */
-//    1000,                   /*Stack size of task. */
-//    NULL,                   /* parameter of the task. */
-//    1,                      /* proiority of the task. */
-//    &Task1_Core0,                 /* Task handel to keep tra ck of created task. */
-//    0);                     /* choose Core */
 
-// xTaskCreatePinnedToCore(
-//    codeForTask1_Core1,           /*Task Function. */
-//    "Task1_Core1",               /*name of task. */
-//    1000,                   /*Stack size of task. */
-//    NULL,                   /* parameter of the task. */
-//    1,                      /* proiority of the task. */
-//    &Task1_Core1,                 /* Task handel to keep tra ck of created task. */
-//    1);                     /* choose Core */
-
-    
   //set used pins
   setLEDPins();
   blinkBLUE(2, 350);
 
-  ///////////////--Wire Activation--////////////////////
-  SPI.begin(SCK, MISO, MOSI, SS);
-  Mcu.init(SS, RST_LoRa, DIO0, DIO1, license);
 
 
-
-  ///////////////--Initialize device--//////////////////
+  ///////////////--Initialize Temp/Humidity Sensor--//////////////////
   activateDHT22();
   blinkBLUE(3, 350);
-  deviceState = DEVICE_STATE_INIT;
+
 
   ///////////////--Initialize display--/////////////////
   initializeDisplay();
@@ -107,13 +103,14 @@ void runSETUP()
   delay(500);
 
   connectDisplay();
-  blinkBLUE(10, 150);
-  printCO2(averageCO2, 5000);
+  blinkBLUE(5, 150);
+  //averageCO2Store = read_int(90);
+  //printCO2Store(averageCO2Store, 5000);
   delay(500);
-  ///////////////--SGP30 Activation--////////////////////
-  //initializeSGP30();
 
 
-  // If you have a baseline measurement from before you can assign it to start, to 'self-calibrate'
-  //setSGP30Baseline();
+  ///////////////--Wire Activation--////////////////////
+  SPI.begin(SCK, MISO, MOSI, SS);
+  Mcu.init(SS, RST_LoRa, DIO0, DIO1, license);
+  deviceState = DEVICE_STATE_INIT;
 }

@@ -17,6 +17,9 @@
 #include <Wire.h>
 #include <EEPROM.h>
 
+#include <stdlib.h>
+#include <stdint.h>
+
 #include "DHT22.hpp"
 #include "Display.hpp"
 #include "LoRaWan.hpp"
@@ -27,93 +30,25 @@
 #include "SETUP.hpp"
 #include "REBOOT.hpp"
 #include "Tasks.hpp"
+#include "EEPROM.hpp"
+
+
+byte Value1 = acutalMessurment;
+
+///////////////////////////////////////////---Definition---///////////////////////////////////////////////////////////////////
+
 
 void runLOOP() {
-  /*
-    if ( needMessurment == true ) {
-    getCO2andVOC();
-    delay(1000);
-    blinkBLUE(3, 1000);
-    needMessurment = false;
-    }
+  delay(500);
+  blinkBLUE(1, 500);
+  delay(500);
+  //int Value1 = read_int(90);
+  Value1++ ;
+  delay(50);
+  write_int(90, Value1);
+  delay(50);
+  Serial.println("[LOOP]: read EEPROM -> end");
+  Serial.println(read_int(90));
 
-    if ( needREBOOT == true ) {
-    rebootESP32(10000);
-    }
-
-    for ( int count = 0; count <= 10; count ++) {
-  */
-  switch (deviceState)
-  {
-    ///////////////--Initialize--////////////////////
-    case DEVICE_STATE_INIT:
-      {
-#if (LORAWAN_DEVEUI_AUTO)
-        LoRaWAN.generateDeveuiByChipID();
-#endif
-        LoRaWAN.init(loraWanClass, loraWanRegion);
-        break;
-      }
-
-
-    ///////////////--Join--////////////////////
-    case DEVICE_STATE_JOIN:
-      {
-        Serial.println("[Loop]:Join");
-        LoRaWAN.join();
-        break;
-      }
-
-
-    ///////////////--State send--////////////////////
-    case DEVICE_STATE_SEND:
-      {
-        prepareTxFrame(appPort);
-        LoRaWAN.send(loraWanClass);
-        deviceState = DEVICE_STATE_CYCLE;
-        delay(5000);
-        break;
-      }
-
-
-    ///////////////--Cycle--////////////////////
-    case DEVICE_STATE_CYCLE:
-      {
-        Serial.println("[Loop]:Cycle");
-        // Schedule next packet transmission
-        txDutyCycleTime = appTxDutyCycle;
-        //+ randr( -APP_TX_DUTYCYCLE_RND, APP_TX_DUTYCYCLE_RND );
-        LoRaWAN.cycle(txDutyCycleTime);
-        deviceState = DEVICE_STATE_SLEEP;
-        activateDeepSleep();
-        break;
-      }
-
-
-    ///////////////--Sleep--////////////////////
-    case DEVICE_STATE_SLEEP:
-      {
-        LoRaWAN.sleep(loraWanClass, debugLevel);
-        break;
-      }
-
-
-    ///////////////--default--////////////////////
-    default:
-      {
-        deviceState = DEVICE_STATE_INIT;
-        break;
-      }
-  }
-
-  //}
-
-  /*
-    getTemperatureDHT22();
-    delay(500);
-    getHumidityDHT22();
-  */
-  //startSignalController();
-  blinkBLUE(1, 3000);
-  //rebootESP32(10000);
+  delay(1000);
 }

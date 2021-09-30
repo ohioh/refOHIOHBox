@@ -1,14 +1,14 @@
 /*##########################################################################################################
- *  Variables.cpp
- *  Link: 
- * 
- *  1.SENSOR-VARIABLES
- *  2.COVID-Control -> used from Signals.cpp -> void startSignalController(); 
- * 
- * 
- * 
- * ########################################################################################################
- */
+    Variables.cpp
+    Link:
+
+    1.SENSOR-VARIABLES
+    2.COVID-Control -> used from Signals.cpp -> void startSignalController();
+
+
+
+   ########################################################################################################
+*/
 #include "Variables.hpp"
 
 #include <stdlib.h>
@@ -20,12 +20,18 @@
 #include <string>
 
 
+int BatteryStatus;
+int acutalMessurment;
+
+uint16_t binPlatformData = 0b0000000000000000; //for integer values till to 65535
+int averageCO2 = 0;
+int averageCO2Store = 0;
 
 int globaleVariable = 42; // definition
-int RED_PIN = 4;
-int GREEN_PIN = 2;
-int BLUE_PIN = 15;
-int ALERT_PIN = 32;
+int RED_PIN = 32;
+int GREEN_PIN = 15;
+int BLUE_PIN = 12;
+int ALERT_PIN = 4;
 uint16_t ms = 500;
 int MEASURMENT_BRAKE = 500;
 bool needMessurment = true;
@@ -43,7 +49,6 @@ int gHUMIDITY = 65;
 uint8_t gBinHUMIDITY;
 
 int gCO2 = 600;
-int averageCO2;
 uint8_t gBinCO2;
 
 int gVOC = 0;
@@ -63,7 +68,7 @@ unsigned int hardwareState = 0;
 uint16_t binaryHardwareStatus = 0b1100110011001100; //52428 and CCCC
 
 // Battery-Power
-unsigned int batteryStatus = 95;
+//unsigned int batteryStatus = 95;
 uint16_t binaryBatteryStatus = 0b1100110011001100; //52428 and CCCC
 
 unsigned int sensorDataTemperature = 0;

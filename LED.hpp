@@ -30,9 +30,13 @@ void blinkBLUE(byte times, unsigned int ms);
 void blinkWHITE(byte times, unsigned int ms);
 
 */
-void blinkALERT(uint16_t times, uint16_t ms);
+
+void blinkRED();
+
+void blinkALERT();
+
 void blinkLEDBuildin();
-void blinkRED(uint16_t times, uint16_t ms);
+
 void blinkGREEN(uint16_t times, uint16_t ms);
 void blinkBLUE(uint16_t times, uint16_t ms);
 void blinkWHITE(uint16_t times, uint16_t ms);

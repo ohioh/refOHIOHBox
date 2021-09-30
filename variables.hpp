@@ -16,7 +16,13 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+#include <cstddef>
 
+extern int BatteryStatus;
+extern int acutalMessurment;
+extern uint16_t binPlatformData; //for integer values till to 65535
+extern int averageCO2;
+extern int averageCO2Store;
 extern int globaleVariable; // deklaration
 extern int RED_PIN;
 extern int GREEN_PIN;
@@ -57,7 +63,7 @@ extern unsigned int hardwareState;
 extern uint16_t binaryHardwareStatus;
 
 // Battery-Power
-extern unsigned int batteryStatus;
+//extern unsigned int batteryStatus;
 extern uint16_t binaryBatteryStatus;
 
 extern unsigned int sensorDataTemperature;

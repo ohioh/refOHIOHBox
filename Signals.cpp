@@ -35,17 +35,17 @@ void startSignalController()
     if (gTEMPERATURE >= gTEMPERATURETrigger_dangerLevel) {
       // takes the times to blink and the time in ms to send signal
       printAlertTemperature(1000);
-      blinkALERT(20, 150);
+      blinkALERT();
       printAlertTemperature(1000);
       delay(1000);
     } else if ( gTEMPERATURE >= gTEMPERATURETrigger_riskLevel  ) {
       printAlertTemperature(1000);
-      blinkALERT(5, 300);
+      blinkALERT();
       printAlertTemperature(1000);
       delay(1000);
     } else if ( gTEMPERATURE >= gTEMPERATURETrigger_highLevel  ) {
       printAlertTemperature(1000);
-      blinkALERT(3, 500);
+      blinkALERT();
       printAlertTemperature(1000);
     } else {
       Serial.println("Green");
@@ -56,11 +56,11 @@ void startSignalController()
     
     if (averageCO2 >= 0 ) {
       if ( averageCO2 >= gCO2Trigger_dangerLevel ) {
-        blinkALERT(20, 150);
+        blinkALERT();
       } else if ( averageCO2 >= gCO2Trigger_riskLevel ) {
-        blinkALERT(5, 300);
+        blinkALERT();
       } else if (averageCO2 >= gCO2Trigger_highLevel) {
-        blinkALERT(3, 500);
+        blinkALERT();
       } else {
         //printDisplayTEXT(1000,"Test","Test","Test");
         Serial.println("Green");

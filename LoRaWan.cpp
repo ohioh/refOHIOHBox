@@ -1,14 +1,14 @@
 /*##########################################################################################################
- *  LoRaWan.cpp
- *  Link: 
- * 
- * 
- * 
- * 
- * 
- * 
- * ########################################################################################################
- */
+    LoRaWan.cpp
+    Link:
+
+
+
+
+
+
+   ########################################################################################################
+*/
 #include "Settings.hpp"
 #include "Variables.hpp"
 #include "LoRaWan.hpp"
@@ -27,6 +27,7 @@
 //
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int binPlatformDataTEST = 43;
 
 //TODO: change the int to size_t
 void decToBinary(int input)
@@ -110,7 +111,7 @@ void decToBinary(int input)
 //
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-uint16_t binPlatformData = 0b0000000000000000; //for integer values till to 65535
+
 
 void zennerParserPrepair()
 {
@@ -159,49 +160,66 @@ extern uint16_t appData[];
 void prepareTxFrame(uint8_t port)
 {
   Serial.println("[Payload]: prepair TX Frame");
+  /*
+    //Size of values in Payload as binary
+    //depends to uintXX_t appData[]
+    appDataSize = 12; //AppDataSize max value is 64 -> each number is for 2 digits
+    //Important: AppDataSize representate the number of transmitted bytes
 
-  //Size of values in Payload as binary
-  //depends to uintXX_t appData[]
-  appDataSize = 12; //AppDataSize max value is 64 -> each number is for 2 digits
-  //Important: AppDataSize representate the number of transmitted bytes
+    /////////////---Parser: status: state---/////////////
+    //connectStatusCommunication();
+    appData[0] = binaryHardwareStatus;
+    delay(50);
 
-  /////////////---Parser: status: state---/////////////
-  //connectStatusCommunication();
-  appData[0] = binaryHardwareStatus;
-  delay(50);
+    /////////////---Parser: battery: bat---/////////////
+    decToBinary(batteryStatus);
+    zennerParserPrepair();
+    appData[1] = binPlatformDataTEST;
+    delay(50);
 
-  /////////////---Parser: battery: bat---/////////////
-  decToBinary(batteryStatus);
+    /////////////---Parser: temperature: temp---/////////////
+    //connectDHT();
+    decToBinary(gTEMPERATURE);
+    zennerParserPrepair();
+    appData[2] = binPlatformDataTEST;
+    //messureTemperature = false;
+    delay(50);
+
+    /////////////---Parser: humidity: hum---/////////////
+    decToBinary(gHUMIDITY);
+    zennerParserPrepair();
+    appData[3] = binPlatformDataTEST;
+    //messureTemperature = true;
+    delay(50);
+
+    /////////////---Parser: codioxid: co2---/////////////
+    decToBinary(gCO2);
+    zennerParserPrepair();
+    appData[4] = binPlatformDataTEST;
+    //messureCO2 = false;
+    delay(50);
+
+    /////////////---Parser: loesemittel: voc---/////////////
+    decToBinary(gVOC);
+    zennerParserPrepair();
+    appData[5] = binPlatformDataTEST;
+    //messureCO2 = true;
+    delay(50);
+    Serial.println(appData[0]);
+    Serial.println(appData[1]);
+    Serial.println(appData[2]);
+    Serial.println(appData[3]);
+    Serial.println(appData[4]);
+    Serial.println(appData[5]);
+  */
+  decToBinary(averageCO2Store);
   zennerParserPrepair();
-  appData[1] = binPlatformData;
-  delay(50);
+  appDataSize = 10;//AppDataSize max value is 64
+  appData[0] = binPlatformData;
+  appData[1] = 0x01;
+  appData[2] = 0x02;
+  appData[3] = 0x03;
+  appData[4] = 0x03;
 
-  /////////////---Parser: temperature: temp---/////////////
-  //connectDHT();
-  decToBinary(gTEMPERATURE);
-  zennerParserPrepair();
-  appData[2] = binPlatformData;
-  //messureTemperature = false;
-  delay(50);
-
-  /////////////---Parser: humidity: hum---/////////////
-  decToBinary(gHUMIDITY);
-  zennerParserPrepair();
-  appData[3] = binPlatformData;
-  //messureTemperature = true;
-  delay(50);
-
-  /////////////---Parser: codioxid: co2---/////////////
-  decToBinary(gCO2);
-  zennerParserPrepair();
-  appData[4] = binPlatformData;
-  //messureCO2 = false;
-  delay(50);
-
-  /////////////---Parser: loesemittel: voc---/////////////
-  decToBinary(gVOC);
-  zennerParserPrepair();
-  appData[5] = binPlatformData;
-  //messureCO2 = true;
-  delay(50);
+  Serial.println("FrameBuildDone");
 }

@@ -11,6 +11,7 @@
 
 //Display
 #include <Arduino.h>
+#include "EEPROM.hpp"
 #include <string>
 #include <SPI.h>
 #include <U8g2lib.h>
@@ -41,12 +42,14 @@ void initializeDisplay()
 
 }
 
+
+
 void pre(void)
 {
   u8x8.setFont(u8x8_font_amstrad_cpc_extended_f);
   u8x8.clear();
   u8x8.inverse();
-  u8x8.print(" COVID-Protect ");
+  u8x8.print(" ThingBoard ");
   u8x8.setFont(u8x8_font_chroma48medium8_r);
   u8x8.noInverse();
   u8x8.setCursor(0, 1);
@@ -70,8 +73,11 @@ void connectDisplay()
   uint8_t c, r, d;
   pre();
   u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.drawString(0, 1, "Sensor Data:");
-  delay(2000);
+  u8x8.drawString(0, 2, "Connecting...");
+  u8x8.inverse();
+  u8x8.drawString(0, 8, " OHIOH e.V.");
+  u8x8.noInverse();
+  delay(1000);
   u8x8.clear();
 
 
@@ -85,8 +91,10 @@ void connectDisplay()
   draw_bar(u8x8.getCols() - 1, 0);
 
   pre();
+
   u8x8.drawString(0, 2, "Status");
   u8x8.draw2x2String(0, 5, "OK");
+
   delay(2000);
   u8x8.clear();
   u8x8.setPowerSave(1);
@@ -129,7 +137,16 @@ void printAlertCO2(int displayTime) {
   u8x8.setPowerSave(1);
 }
 
-
+void printLoRaState(int displayTime, int state) {
+  u8x8.setPowerSave(0);
+  u8x8.clear();
+  u8x8.setFont(u8x8_font_px437wyse700a_2x2_f);
+  u8x8.drawString(0, 0, "LoRaWan");
+  u8x8.drawString(0, 3, "State:");
+  u8x8.drawString(0, 5, u8x8_u16toa(state, 1));
+  delay(displayTime);
+  u8x8.setPowerSave(1);
+}
 
 void printTemperature(int temperature, int displayTime)
 {
@@ -174,20 +191,24 @@ void printHumidity(int humidity, int displayTime)
   u8x8.setPowerSave(1);
 }
 
-void printCO2(int getCO2, int displayTime)
+void printCO2Store (int averageCO2Store, int displayTime)
 {
+
   Serial.println("PrintCO2");
   initializeDisplay();
   delay(500);
-  connectDisplay();
+  //connectDisplay();
   delay(500);
   u8x8.setPowerSave(0);
   int i;
   uint8_t c, r, d;
   pre();
   u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.drawString(0, 1, "CO2:");
-  delay(2000);
+  u8x8.drawString(0, 1, "letze Messung: ");
+  u8x8.drawString(0, 2, "CO2:");
+  int averageCO2Store_X = read_int(90); //Read from EEPROM
+  u8x8.draw2x2String(0, 3, u8x8_u16toa(averageCO2Store, 4));
+  delay(1000);
   u8x8.clear();
 
 
@@ -203,11 +224,25 @@ void printCO2(int getCO2, int displayTime)
 
   pre();
   u8x8.drawString(0, 2, "CO2");
-  int drawCO2 = getCO2;
-  u8x8.draw2x2String(0, 5, u8x8_u16toa(drawCO2, 4));
-  delay(2000);
+  int drawCO2 = read_int(90); //Read from EEPROM
+  u8x8.draw2x2String(0, 5, u8x8_u16toa(averageCO2Store, 4));
+  delay(1000);
   u8x8.setPowerSave(1);
 }
+
+void printCO2 (int averageCO2Store) {
+  u8x8.setPowerSave(0);
+  pre();
+  u8x8.clear();
+  u8x8.setFont(u8x8_font_px437wyse700a_2x2_f);
+  u8x8.drawString(0, 0, "CO2-Messung");
+  int averageCO2Store_Y = read_int(90); //Read from EEPROM
+  u8x8.draw2x2String(0, 5, u8x8_u16toa(averageCO2Store, 4));
+
+  delay(10000);
+  u8x8.setPowerSave(1);
+}
+
 
 void turnoffDisplay()
 {

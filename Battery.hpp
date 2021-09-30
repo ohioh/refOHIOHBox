@@ -9,12 +9,13 @@
  * 
  * ########################################################################################################
  */
+#include <cstddef>
  
 #ifndef BATTERY_HPP
 #define BATTERY_HPP
 
 
-void setupBattery();
-void getBatteryStatus();
+
+int ReadVoltage(int PowerPin);
 
 #endif 

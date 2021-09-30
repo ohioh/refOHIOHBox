@@ -9,9 +9,9 @@
  * 
  * ########################################################################################################
  */
+ 
 #include "Variables.hpp"
 #include "Settings.hpp"
-
 
 #include <Arduino.h>
 #include <ESP32_LoRaWAN.h>
@@ -25,20 +25,14 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*license for Heltec ESP32 LoRaWan, quary your ChipID relevant license: http://resource.heltec.cn/search */
-//WireLessStick
-//uint32_t license[4] = {0x3BF994AB, 0x6E5C029E, 0xDC3BE428, 0x28205375};
-//WirelessStick_811
-//uint32_t license[4] = {0xBB74D4A2, 0x7E5A9D69, 0xD4AF87EF, 0x9910D37F};
+uint32_t  license[4] = {0xD5397DF0, 0x8573F814, 0x7A38C73D, 0x48E68607};
 
-uint32_t license[4] = {0x60F6240C,0x3E6D416F,0x949AE4E5,0xB90F8339};
-
-//uint32_t license[4] = {0x5F18A4AE, 0x1E5EB191, 0x9C1CA42B, 0x1918133B};
 
 /* OTAA para*/
 //WireLessStick
-uint8_t DevEui[] = {0x17, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x11};
-uint8_t AppKey[] = {0x17, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x11};
-uint8_t AppEui[] = {0x17, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x11};
+uint8_t DevEui[] = {0x18, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x12};
+uint8_t AppKey[] = {0x18, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x77, 0x12};
+uint8_t AppEui[] = {0x18, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x12};
 
 //WirelessStick_811
 //uint8_t DevEui[] = {0x13, 0x34, 0x56, 0x77, 0x77, 0x77, 0x77, 0x02};
@@ -51,13 +45,13 @@ uint8_t AppSKey[] = {0xd7, 0x2c, 0x78, 0x75, 0x8c, 0xdc, 0xca, 0xbf, 0x55, 0xee,
 uint32_t DevAddr = (uint32_t)0x007e6ae1;
 
 /*LoraWan channelsmask, default channels 0-7*/
-uint16_t userChannelsMask[6] = {0x00FF, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000};
+uint16_t userChannelsMask[6] = {0x00FF, 0x0000, 0x0000, 0x0000, 0x0000, 0x0000 };
 
 /*LoraWan Class, Class A and Class C are supported*/
 DeviceClass_t loraWanClass = CLASS_A;
 
 /*the application data transmission duty cycle.  value in [ms].*/
-uint32_t appTxDutyCycle = 1500;
+uint32_t appTxDutyCycle = 5000;
 
 /*OTAA or ABP*/
 bool overTheAirActivation = true;
@@ -74,8 +68,7 @@ uint8_t appPort = 2;
 /*CHIP-ID*/
 uint64_t chipid;
 
-/*WakeUpButton*/
-#define INT_PIN GPIO_NUM_0
+
 
 /*!
   Number of trials to transmit the frame, if the LoRaMAC layer did not

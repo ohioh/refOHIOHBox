@@ -13,15 +13,4 @@
 
 #include "Tasks.hpp"
 #include <Arduino.h>
-
-
-
-
-
-void setTask1_Core0() {
-
-}
-
-void setTask1_Core1() {
-
-}
+#include "LED.hpp"

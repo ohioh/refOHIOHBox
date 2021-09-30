@@ -1,94 +1,41 @@
 /*##########################################################################################################
- *  Battery.cpp
- *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/ADC_Read_Voltage/Battery_power/Battery_power.ino
- *  Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/VextControl/VextControl.ino
- * 
- * 
- * 
- * 
- * 
- * ########################################################################################################
- */
-#include "battery.hpp"
+    Battery.cpp
+    Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/ADC_Read_Voltage/Battery_power/Battery_power.ino
+    Link: https://github.com/HelTecAutomation/Heltec_ESP32/blob/master/examples/ESP32/VextControl/VextControl.ino
 
+
+
+
+
+   ########################################################################################################
+*/
+#include "battery.hpp"
+#include "Variables.hpp"
 #include <Arduino.h>
 #include <Wire.h>
+#include <cstddef>
 
 
-#include "Variables.hpp"
 
-#define Fbattery    3700  //The default battery is 3700mv when the battery is fully charged.
+int ReadVoltage(int PowerPin) {
+  int reading = analogRead(PowerPin); // Reference voltage is 3v3 so maximum reading is 3v3 = 4095 in range 0 to 4095
+  if (reading < 1 || reading >= 4095)
+    //return 0;
+    // return -0.000000000009824 * pow(reading,3) + 0.000000016557283 * pow(reading,2) + 0.000854596860691 * reading + 0.065440348345433;
+    //return -0.000000000000016 * pow(reading,4) + 0.000000000118171 * pow(reading,3)- 0.000000301211691 * pow(reading,2)+ 0.001109019271794 * reading + 0.034143524634089;
+    return reading;
+  } // Added an improved polynomial, use either, comment out as required
 
-float XS = 0.0025;      //The returned reading is multiplied by this XS to get the battery voltage.
-uint16_t MUL = 1000;
-uint16_t MMUL = 100;
+//See more APIs about ADC here: https://github.com/Heltec-Aaron-Lee/WiFi_Kit_series/blob/master/esp32/cores/esp32/esp32-hal-adc.h
 
-void setupBattery()
-{
-  //Heltec.begin(false /*DisplayEnable Enable*/, false /*LoRa Enable*/, true /*Serial Enable*/);
-
-  //Heltec.display->init();
-  //Heltec.display->flipScreenVertically();
-  //Heltec.display->setFont(ArialMT_Plain_10);
-  //Heltec.display->drawString(0, 0, "OLED Start");
-  //Heltec.display->display();
-  //delay(1000);
-  //Heltec.display->clear();
-
-  //analogSetClockDiv(255); // 1338mS
-  analogSetCycles(8);                   // Set number of cycles per sample, default is 8 and provides an optimal result, range is 1 - 255
-  analogSetSamples(1);                  // Set number of samples in the range, default is 1, it has an effect on sensitivity has been multiplied
-  analogSetClockDiv(1);                 // Set the divider for the ADC clock, default is 1, range is 1 - 255
-  analogSetAttenuation(ADC_11db);       // Sets the input attenuation for ALL ADC inputs, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
-  analogSetPinAttenuation(36, ADC_11db); // Sets the input attenuation, default is ADC_11db, range is ADC_0db, ADC_2_5db, ADC_6db, ADC_11db
-  analogSetPinAttenuation(37, ADC_11db);
-  // ADC_0db provides no attenuation so IN/OUT = 1 / 1 an input of 3 volts remains at 3 volts before ADC measurement
-  // ADC_2_5db provides an attenuation so that IN/OUT = 1 / 1.34 an input of 3 volts is reduced to 2.238 volts before ADC measurement
-  // ADC_6db provides an attenuation so that IN/OUT = 1 / 2 an input of 3 volts is reduced to 1.500 volts before ADC measurement
-  // ADC_11db provides an attenuation so that IN/OUT = 1 / 3.6 an input of 3 volts is reduced to 0.833 volts before ADC measurement
-  //   adcAttachPin(VP);                     // Attach a pin to ADC (also clears any other analog mode that could be on), returns TRUE/FALSE result
-  //   adcStart(VP);                         // Starts an ADC conversion on attached pin's bus
-  //   adcBusy(VP);                          // Check if conversion on the pin's ADC bus is currently running, returns TRUE/FALSE result
-  //   adcEnd(VP);
-
-  adcAttachPin(36);
-  adcAttachPin(37);
-}
-
-void getBatteryStatus()
-{
-  //Battery voltage read pin changed from GPIO13 to GPI37
-  adcStart(37);
-  while (adcBusy(37));
-  Serial.printf("Battery power in GPIO 37: ");
-  Serial.println(analogRead(37));
-  uint16_t c1  =  analogRead(37) * XS * MUL;
-  adcEnd(37);
-
-  delay(100);
-
-  adcStart(36);
-  while (adcBusy(36));
-  Serial.printf("voltage input on GPIO 36: ");
-  Serial.println(analogRead(36));
-  uint16_t c2  =  analogRead(36) * 0.769 + 150;
-  adcEnd(36);
-  Serial.println("-------------");
-  // uint16_t c  =  analogRead(13)*XS*MUL;
-  // Serial.println(analogRead(13));
-  //Heltec.display->drawString(0, 0, "Vbat = ");
-  //Heltec.display->drawString(33, 0, (String)c1);
-  //Heltec.display->drawString(60, 0, "(mV)");
-
-  //Heltec.display->drawString(0, 10, "Vin   = ");
-  //Heltec.display->drawString(33, 10, (String)c2);
-  //Heltec.display->drawString(60, 10, "(mV)");
-
-  // Heltec.display->drawString(0, 0, "Remaining battery still has:");
-  // Heltec.display->drawString(0, 10, "VBAT:");
-  // Heltec.display->drawString(35, 10, (String)c);
-  // Heltec.display->drawString(60, 10, "(mV)");
-  //Heltec.display->display();
-  //delay(5000);
-  //Heltec.display->clear();
-}
+/* ADC readings v voltage
+    y = -0.000000000009824x3 + 0.000000016557283x2 + 0.000854596860691x + 0.065440348345433
+  // Polynomial curve match, based on raw data thus:
+     464     0.5
+    1088     1.0
+    1707     1.5
+    2331     2.0
+    2951     2.5
+    3775     3.0
+    4095     3.7
+*/
